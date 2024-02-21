@@ -30,6 +30,11 @@ return this.http.get<Analyse[]>(this.url+'/retrieve-all-Analyses', { headers })
     return this.http.post(`${this.url}/add-Analyse/${id}`, analyse);
    // return this.http.post(this.url+'/add-Analyse/${id}', analyse);
   }
+  AjouterAnalyse_us(analyse: any,id:any): Observable<any> {
+    return this.http.post(`${this.url}/add-Analyse_us/${id}`, analyse);
+    // return this.http.post(this.url+'/add-Analyse/${id}', analyse);
+  }
+  Supprimer_Analyse(id:number){return this.http.delete(`${this.url}/delete-Analyse/${id}`)}
 
 
   getAnalyse_par_Us():Observable<Analyse[]>{

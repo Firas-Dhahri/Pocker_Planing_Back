@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {AnalyseService} from "../../Service/analyse.service";
+import {Analyse} from "../../Models/Analyse";
 
 @Component({
   selector: 'app-analyse-projet',
@@ -24,6 +25,10 @@ export class AnalyseProjetComponent {
     }, error => {
       console.error('Erreur lors de la récupération des données:', error);
     });
+  }
 
+  delete(i: number) {
+    this.AS.Supprimer_Analyse(i).subscribe(
+      () => this.listAnalyse = this.listAnalyse.filter((analyse: Analyse) => analyse.id !== i))
   }
   }

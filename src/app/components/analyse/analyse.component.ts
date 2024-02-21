@@ -26,7 +26,10 @@ constructor(private AS:AnalyseService){}
 
 
 
-
+  delete(i: number) {
+    this.AS.Supprimer_Analyse(i).subscribe(
+      () => this.listAnalyse = this.listAnalyse.filter((analyse: Analyse) => analyse.id !== i))
+  }
 
 
 
