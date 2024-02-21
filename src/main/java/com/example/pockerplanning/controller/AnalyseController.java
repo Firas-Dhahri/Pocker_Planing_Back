@@ -52,6 +52,15 @@ public class AnalyseController {
     public Analyse addAnalyse(@RequestBody Analyse ae,@PathVariable("id_projet") int id_projet)
     {
         Analyse analyse = analyseService.ajouterAnalyse(ae,id_projet);
+
+        return analyse;
+    }
+    @PostMapping("/add-Analyse_us/{id_ticket}")
+    @ResponseBody
+    public Analyse addAnalyse_us(@RequestBody Analyse ae,@PathVariable("id_ticket") long id_ticket)
+    {
+        Analyse analyse = analyseService.ajouterAnalyse_Us(ae,id_ticket);
+
         return analyse;
     }
 

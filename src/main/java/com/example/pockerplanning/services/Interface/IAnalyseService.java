@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface IAnalyseService {
     Analyse ajouterAnalyse(Analyse analyse,int id_projet);
+    Analyse ajouterAnalyse_Us(Analyse analyse,long id_ticket);
     List<Analyse> afficherAnalyse();
     List<Analyse> afficherAnalyse_projet();
     List<Analyse> afficherAnalyse_Us();
