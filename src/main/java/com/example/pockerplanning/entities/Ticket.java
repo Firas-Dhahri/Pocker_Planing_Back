@@ -4,80 +4,73 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@EqualsAndHashCode
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "Ticket")
 public class Ticket implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idticket")
-    private Long Id;
+    private Long id;
+    @Column(name = "self_ticket")
     private String self;
     private String key;
-    @ManyToOne
-    Sprint sprint;
-    @ManyToOne
-    Session session;
     @Embedded
     private Fields fields;
 
-    // Getter and setter for fields
-    /*public Fields getFields() {
-        return fields;
-    }*/
+    @ManyToOne
+    @JoinColumn(name = "session_id")
+    private Session session;
 
-   /* public void setFields(Fields fields) {
-        this.fields = fields;
-    }
-*/
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "sprint_id_sprint")
+    private Sprint sprint;
+
 
     @Embeddable
-    @Data
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class Fields {
+
         private String summary;
+        private Float customfield_10016;
+        @Embedded
+        private Issuetype issuetype;
+        @Column(name = "description_field")
         private String description;
         @Embedded
         private Priority priority;
-        @Embedded
-        private Status status;
-        @Embedded
-        private Assignee assignee;
-        @Embedded
-        private Reporter reporter;
         private String created;
         private String updated;
-    }
 
+
+        @Data
+        @Embeddable
+        @NoArgsConstructor
+        @AllArgsConstructor
+        public static class Issuetype {
+            private String id;
+            private String self;
+            private String description;
+            private String name;
+        }
+    }
     @Embeddable
     @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class Priority {
         @Column(name = "priority_name") // Unique column name for Priority name
         private String name;
     }
 
-    @Embeddable
-    @Data
-    public static class Status {
-        @Column(name = "status_name") // Unique column name for Status name
-        private String name;
-    }
-
-    @Embeddable
-    @Data
-    public static class Assignee {
-        @Column(name = "assignee_name") // Unique column name for Assignee name
-        private String name;
-    }
-
-    @Embeddable
-    @Data
-    public static class Reporter {
-        @Column(name = "reporter_name") // Unique column name for Reporter name
-        private String name;
+    public void setSprint(Sprint sprint) {
     }
 }

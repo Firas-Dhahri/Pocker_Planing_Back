@@ -3,6 +3,7 @@ package com.example.pockerplanning.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,10 +22,13 @@ public class Session {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy="session")
     private List<Chat> Chats;
-   // @OneToOne
+
+    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Ticket> tickets = new ArrayList<>();
+
+// @OneToOne
     //private Historique historique;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="session")
-    private List<Ticket> Tickets;
+
 
 
 
