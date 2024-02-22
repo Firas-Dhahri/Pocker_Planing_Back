@@ -3,18 +3,40 @@ package com.example.pockerplanning.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-public class Message {
+@ToString
+@Table(name = "Message")
+public class Message implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "id")
+    private Long id;
 
+   /* @Column(name = "description")
+    private String description;
+*/
+    private String content;
+
+    private String sender;
+
+    @Column(name = "dateTime")
+    private Date dateTime;
+/*
     @ManyToOne
-    Chat chat;
+    private Chat chat;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "message")
+    private List<Metric> metrics;
+*/
 }
