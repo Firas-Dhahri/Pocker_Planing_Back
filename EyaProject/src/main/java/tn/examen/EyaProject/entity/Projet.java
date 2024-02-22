@@ -28,8 +28,6 @@ public class Projet {
     private Date date_debut;
     private Date date_fin;
     private float duree;
-    private String methodologie;
-    private String methode;
     private String contraintes;
     private String exigences;
     private String dependance;
