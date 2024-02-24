@@ -22,6 +22,11 @@ public class Sprint implements Serializable {
     private long id;
     private String self;
     private String state;
+
+    public String getName() {
+        return name;
+    }
+
     private String name;
     private String startDate;
     private String endDate;
