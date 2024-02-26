@@ -12,6 +12,7 @@ import lombok.*;
 
 
 @Entity
+@Data
 @Getter
 @Setter
 @EqualsAndHashCode

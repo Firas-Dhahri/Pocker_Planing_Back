@@ -1,6 +1,7 @@
 package com.example.pockerplanning.services.Interface;
 
 import com.example.pockerplanning.entities.Analyse;
+import org.springframework.http.ResponseEntity;
 
 
 import java.util.List;
@@ -16,5 +17,6 @@ public interface IAnalyseService {
     Analyse updateAnalyse(Analyse e, int id_analyse);
     //get Analyse par ordre des Sprints
  List<Analyse> getAnalyse_par_ordre_chronologique();
+    public ResponseEntity<?> GetProjetParSprint(int id);
 
 }

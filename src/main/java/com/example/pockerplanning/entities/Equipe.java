@@ -22,9 +22,10 @@ public class Equipe {
     private int satisfactionPO;
     private String chat;
     private DISPONIBILITE disponibilites;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy="equipe")
     private List<Projet> Projets;
 
     @ManyToMany(mappedBy = "equipes", cascade = {CascadeType.ALL})
-    private Set<User> users;
+    private List<User> users;
 }
