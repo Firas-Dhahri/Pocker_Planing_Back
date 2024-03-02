@@ -30,12 +30,5 @@ public class Analyse implements Serializable {
     @OneToOne
     private Projet projet;
 
-
-    // Ticket ticket;
-      //  Sprint sprint;
-    //User user;
-
-
-   // List<Session> sessions;
 }
 

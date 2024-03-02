@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -27,6 +28,10 @@ public class Sprint implements Serializable {
     private String createdDate;
     private long originBoardId;
     private String goal;
+
+
+    private Date real_end_date;
+
     @JsonIgnore
     @ManyToOne
     Projet projet;

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ProjetReposiroty extends JpaRepository<Projet, Integer> {
+public interface    ProjetReposiroty extends JpaRepository<Projet, Integer> {
 
 
 

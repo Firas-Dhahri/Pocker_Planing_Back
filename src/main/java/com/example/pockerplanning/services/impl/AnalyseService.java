@@ -15,9 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.Console;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class AnalyseService implements IAnalyseService {
@@ -34,7 +34,6 @@ public class AnalyseService implements IAnalyseService {
     public Analyse ajouterAnalyse(Analyse analyse,int id_projet) {
            Projet p= projetReposiroty.findById(id_projet).orElse(null);
          //  Ticket t=ticketRepository.findById(id_ticket).orElse(null);
-
        analyse.setProjet(p);
         return analyseRepository.save(analyse);
     }
@@ -44,35 +43,62 @@ public class AnalyseService implements IAnalyseService {
     analyse.setTicket((t));
         return analyseRepository.save(analyse);
     }
+    @Override
+    public List<Sprint> sprint_en_retard(int id) {
+        List<Sprint> allSprints = sprintRepository.getprojet_par_sprint(id);
+        List<Sprint> sprintsEnRetard = new ArrayList<>();
 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+        for (Sprint sp : allSprints) {
+            try {
+                Date endDate = dateFormat.parse(sp.getEndDate());
+                Date realEndDate = sp.getReal_end_date();
+                if (endDate.before(realEndDate)) {
+                    sprintsEnRetard.add(sp);
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("lista loula "+allSprints.size()+"lista thenia"+allSprints.size());
+        return sprintsEnRetard;
+    }
     @Override
     public List<Analyse> afficherAnalyse() {
         List<Analyse> list=analyseRepository.findAll();
-
-     //   for(Analyse analyse:list){
-
-            //System.out.println("jobjob"+analyse.getProjet().getTitre());
-         //   System.out.println("jobjob2"+analyse.getProjet().getEquipes());
-
-      //  }/*
         return analyseRepository.findAll();
     }
-
-
     @Override
-    public ResponseEntity<?> GetProjetParSprint(int id) {
-    List<Sprint> sprintList= sprintRepository.getprojet_par_sprint(id);
-//System.out.println("khalil"+sprintList.size());
-        Map<String, String> maps = new HashMap<>();
-        for(Sprint sp:sprintList){
-            String projet_titre=sp.getProjet().getTitre();
-            System.out.println("khalil"+sp.getName());
+    public ResponseEntity<Map<Date,Long>> getprojetpartime(int id_projet) {
+   List<Ticket> ticketList=ticketRepository.ticket_projet(id_projet);
 
-            maps.put(projet_titre,sp.getName());
-        }//end for
+   return null; }
 
-        return ResponseEntity.status(HttpStatus.OK).body(maps);   }
 
+    public ResponseEntity<Map<Long, Long>> GetProjetParSprint(int id) {
+        List<Sprint> sprintList = sprintRepository.getprojet_par_sprint(id);
+        Map<Long, Long> maps = new HashMap<>();
+        for (Sprint sp : sprintList) {
+            String ed=sp.getEndDate();
+            Long sprint_id = sp.getId();
+            String sd=sp.getStartDate();
+            long differenceInDays = 0;
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            try {
+                Date end_date = dateFormat.parse(ed);
+                Date start_date = dateFormat.parse(sd);
+                long differenceInMillis = end_date.getTime() - start_date.getTime();
+                differenceInDays  = differenceInMillis / (24 * 60 * 60 * 1000);
+                System.out.println("nammme: " + differenceInDays);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            maps.putIfAbsent(sprint_id,differenceInDays);
+        }
+        System.out.println("jobjob " + maps.size());
+        return ResponseEntity.ok(maps);
+    }
     @Override
     public List<Analyse> afficherAnalyse_projet() {
         return analyseRepository.getAnalys_projet();

@@ -1,10 +1,13 @@
 package com.example.pockerplanning.services.Interface;
 
 import com.example.pockerplanning.entities.Analyse;
+import com.example.pockerplanning.entities.Sprint;
 import org.springframework.http.ResponseEntity;
 
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public interface IAnalyseService {
     Analyse ajouterAnalyse(Analyse analyse,int id_projet);
@@ -18,5 +21,6 @@ public interface IAnalyseService {
     //get Analyse par ordre des Sprints
  List<Analyse> getAnalyse_par_ordre_chronologique();
     public ResponseEntity<?> GetProjetParSprint(int id);
-
+    List<Sprint> sprint_en_retard(int id);
+     ResponseEntity<Map<Date,Long>> getprojetpartime(int id);
 }

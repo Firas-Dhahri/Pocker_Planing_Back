@@ -1,5 +1,6 @@
 package com.example.pockerplanning.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,7 +23,7 @@ public class Equipe {
     private int satisfactionPO;
     private String chat;
     private DISPONIBILITE disponibilites;
-
+@JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy="equipe")
     private List<Projet> Projets;
 

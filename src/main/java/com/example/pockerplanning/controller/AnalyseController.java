@@ -3,6 +3,7 @@ package com.example.pockerplanning.controller;
 import com.example.pockerplanning.entities.Analyse;
 import com.example.pockerplanning.entities.Historique;
 import com.example.pockerplanning.entities.Projet;
+import com.example.pockerplanning.entities.Sprint;
 import com.example.pockerplanning.repository.AnalyseRepository;
 import com.example.pockerplanning.repository.ProjetReposiroty;
 import com.example.pockerplanning.services.Interface.IAnalyseService;
@@ -40,9 +41,14 @@ public class AnalyseController {
     @GetMapping("/getAnalyses_par_projets_khalil")
     @ResponseBody
     public List<Analyse> getAnalyses_par_projets2() {
+
         return analyseService.afficherAnalyse_projet();
     }
-
+    @GetMapping("/get_analyse_retard/{projet-id}")
+    @ResponseBody
+    public List<Sprint> get_analyse_retard(@PathVariable("projet-id") int id) {
+        return analyseService.sprint_en_retard(id);
+    }
 
     @GetMapping("/getAnalyses_par_us")
     @ResponseBody
@@ -57,6 +63,11 @@ public class AnalyseController {
         return analyseService.GetProjetParSprint(id);
     }
 
+    @GetMapping("/getprojet_par_time/{projet-id}")
+    public ResponseEntity<?> getprojetpartime(@PathVariable("projet-id") int id) {
+        return analyseService.getprojetpartime(id);
+    }
+
     // http://localhost:8088/Spring/etudiant/retrieve-etudiant/8
     @GetMapping("/retrieve-Analyse/{Analyse-id}")
     @ResponseBody
@@ -65,6 +76,7 @@ public class AnalyseController {
     }
     @GetMapping("/retrieve-Analyse_par_sprint_par_ordre/{Analyse-id}")
     public List<Analyse> retrieve_Analyse_par_sprint() {
+
         return analyseService.getAnalyse_par_ordre_chronologique();
     }
 
